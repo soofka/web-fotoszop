@@ -1,6 +1,7 @@
 // 2. import your filter here
 import { grayscale } from './filters/grayscale.js';
 import { negative } from './filters/negative.js';
+import { redHue } from './filters/redHue.js';
 
 const app = {
   imageWidth: 640,
@@ -9,10 +10,11 @@ const app = {
     // 3. add your filter here
     grayscale,
     negative,
+    redHue,
   }
 };
 
-app.init = function() {
+app.init = function () {
   const body = document.querySelector('body');
 
   this.errorBox = document.createElement('p');
@@ -33,7 +35,7 @@ app.init = function() {
       filterLabel.setAttribute('for', filter);
       filterLabel.innerText = filter;
       filtersContainer.append(filterLabel);
-      
+
       filterCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
           this.enabledFilters.push(filter);
@@ -68,11 +70,11 @@ app.init = function() {
   }
 }
 
-app.error = function(message) {
+app.error = function (message) {
   this.errorBox.innerText = message;
 }
 
-app.enableCamera = function() {
+app.enableCamera = function () {
   navigator.mediaDevices.getUserMedia({ video: true })
     .then((stream) => {
       this.video.srcObject = stream;
@@ -81,19 +83,19 @@ app.enableCamera = function() {
     .catch((error) => this.error(error));
 }
 
-app.transformImage = function() {
+app.transformImage = function () {
   this.ctx.drawImage(this.video, 0, 0, this.imageWidth, this.imageHeight);
   let imageData = this.decodeImageData(this.ctx.getImageData(0, 0, 640, 480).data);
 
   for (let filter of this.enabledFilters) {
     imageData = this.filters[filter](imageData, this.imageWidth, this.imageHeight);
   }
-  
+
   this.ctx.putImageData(this.encodeImageData(imageData), 0, 0);
   window.requestAnimationFrame(() => this.transformImage());
 }
 
-app.decodeImageData = function(imageData) {
+app.decodeImageData = function (imageData) {
   let imageDataDecoded = [];
   let rowData = [];
   let pixelData = [];
@@ -115,7 +117,7 @@ app.decodeImageData = function(imageData) {
   return imageDataDecoded;
 }
 
-app.encodeImageData = function(imageData) {
+app.encodeImageData = function (imageData) {
   let imageDataEncoded = [];
 
   for (let y = 0; y < imageData.length; y++) {
