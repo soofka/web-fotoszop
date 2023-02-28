@@ -1,7 +1,8 @@
 // 2. import your filter here
 import { grayscale } from './filters/grayscale.js';
 import { negative } from './filters/negative.js';
-
+import { saturate } from './filters/saturate.js';
+import { stopSaturation } from './filters/saturate.js';
 const app = {
   imageWidth: 640,
   imageHeight: 480,
@@ -9,6 +10,7 @@ const app = {
     // 3. add your filter here
     grayscale,
     negative,
+    saturate
   }
 };
 
@@ -41,6 +43,8 @@ app.init = function() {
           const index = this.enabledFilters.indexOf(filter);
           if (index >= 0) {
             this.enabledFilters.splice(index, 1);
+            //Workaround rzeby saturation filter nie zostawał po zmianie filtra
+            stopSaturation();
           }
         }
       });
@@ -58,6 +62,7 @@ app.init = function() {
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute('width', this.imageWidth);
     this.canvas.setAttribute('height', this.imageHeight);
+    this.canvas.setAttribute('class',"canvas");
     body.append(this.canvas);
 
     this.ctx = this.canvas.getContext('2d');
