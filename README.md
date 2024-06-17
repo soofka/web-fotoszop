@@ -1,16 +1,32 @@
 # Web Fotoszop
-## Co to jest?
-Web Fotoszop to aplikacja tworzona przez klasę 3A w ramach lekcji Programowania Komputerowego w ALO PJATK w roku szkolnym 2022/23.
 
-## Jak to uruchomić?
-Aby uruchomić aplikację Web Fotoszop, należy uruchomić plik `index.html` w wybranej przeglądarce internetowej.
+## About
 
-## Zadania
-### Zadanie 1
-Zaimplementuj transformację obrazu z kamery, która jest do ciebie przypisana. W tym celu skopiuj plik `filter/myFilter.js`, zmień jego nazwę oraz nazwę eksportowanej z niego funkcji, zaimplementuj w nim zadaną transformację, a następnie dodaj ją do listy dostępnych filtrów w pliku `app.js`.
+<!---description_start-->
 
-Funkcja transformująca przyjmuje trzy parametry:
-- `imageData` - wielowymiarowa tablica, zawierające informacje na temat każdego piksela na obrazku.
+Web Fotoszop is an application created by 3rd grade students at Academic High School of Polish-Japanese Academy of Information Technology during 2022/23 school year. It is a showcase of web browser capabilities and some image processing algorithms.
+
+<!---description_end-->
+
+## Basic usage
+
+1. Start local server using `npm start` command
+2. Go to `localhost:3000` in your web browser
+3. Enable camera access
+4. Use checkboxes to apply filters
+
+## Development
+
+1. Duplicate `app/filters/myFilter.js`
+2. Rename new file and function accordingly
+3. Implement your transformation
+4. Import your transformation in `app/index.js`
+5. Add your transformation to `app.filters` object
+
+Your transformation should accept three arguments:
+
+1. 3d array with image data:
+
 ```
 [ // whole image
   [ // first row of the image
@@ -26,7 +42,6 @@ Funkcja transformująca przyjmuje trzy parametry:
   // subsequent rows of the image
 ]
 ```
-- `imageWidth` - szerokość obrazka.
-- `imageHeight` - wysokość obrazka.
 
-Posłuż się istniejącymi filtrami `filters/grayscale.js` i `filters/negative.js` jako przykładami.
+2. image width in pixels
+3. image height in pixels

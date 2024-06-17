@@ -1,25 +1,25 @@
 import { negative } from "./filters/negative.js";
-import { grayscale } from './filters/grayscale.js';
-import { enlarge } from './filters/enlarge.js';
-import { redHue } from './filters/redHue.js';
-import { brighter } from './filters/brighter.js';
-import { DecreasedBrightness } from "./filters/DecreasedBrightness.js";
+import { grayscale } from "./filters/grayscale.js";
+import { brighter } from "./filters/brighter.js";
+import { darker } from "./filters/darker.js";
+import { redHue } from "./filters/redHue.js";
+import { enlarge } from "./filters/enlarge.js";
 
 const app = {
   imageWidth: 640,
   imageHeight: 480,
   filters: {
-    enlarge,
-    brighter,
-    grayscale,
     negative,
-    DecreasedBrightness,
+    grayscale,
+    brighter,
+    darker,
     redHue,
+    enlarge,
   },
 };
 
 app.init = function () {
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
 
   this.errorBox = document.createElement("p");
   body.append(this.errorBox);
@@ -40,7 +40,7 @@ app.init = function () {
       filterLabel.innerText = filter;
       filtersContainer.append(filterLabel);
 
-      filterCheckbox.addEventListener('change', (event) => {
+      filterCheckbox.addEventListener("change", (event) => {
         if (event.target.checked) {
           this.enabledFilters.push(filter);
         } else {
@@ -79,7 +79,8 @@ app.error = function (message) {
 };
 
 app.enableCamera = function () {
-  navigator.mediaDevices.getUserMedia({ video: true })
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
     .then((stream) => {
       this.video.srcObject = stream;
       this.video.addEventListener("loadeddata", () => this.transformImage());
