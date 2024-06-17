@@ -1,21 +1,25 @@
-// 2. import your filter here
-import { grayscale } from "./filters/grayscale.js";
 import { negative } from "./filters/negative.js";
+import { grayscale } from './filters/grayscale.js';
+import { enlarge } from './filters/enlarge.js';
+import { redHue } from './filters/redHue.js';
+import { brighter } from './filters/brighter.js';
 import { DecreasedBrightness } from "./filters/DecreasedBrightness.js";
 
 const app = {
   imageWidth: 640,
   imageHeight: 480,
   filters: {
-    // 3. add your filter here
+    enlarge,
+    brighter,
     grayscale,
     negative,
     DecreasedBrightness,
+    redHue,
   },
 };
 
 app.init = function () {
-  const body = document.querySelector("body");
+  const body = document.querySelector('body');
 
   this.errorBox = document.createElement("p");
   body.append(this.errorBox);
@@ -36,7 +40,7 @@ app.init = function () {
       filterLabel.innerText = filter;
       filtersContainer.append(filterLabel);
 
-      filterCheckbox.addEventListener("change", (event) => {
+      filterCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
           this.enabledFilters.push(filter);
         } else {
@@ -75,8 +79,7 @@ app.error = function (message) {
 };
 
 app.enableCamera = function () {
-  navigator.mediaDevices
-    .getUserMedia({ video: true })
+  navigator.mediaDevices.getUserMedia({ video: true })
     .then((stream) => {
       this.video.srcObject = stream;
       this.video.addEventListener("loadeddata", () => this.transformImage());
