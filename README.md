@@ -1,5 +1,9 @@
 # Web Fotoszop
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f64c5e7b-eb37-417b-a36b-7975ffd25397/deploy-status)](https://app.netlify.com/sites/sparkling-profiterole-8ab76b/deploys)
+
+https://sparkling-profiterole-8ab76b.netlify.app/
+
 ## About
 
 <!---description_start-->
